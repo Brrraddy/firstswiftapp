@@ -1,2 +1,8 @@
 # firstswiftapp
- using swiftUI, UIKit, Firebase
+ using swiftUI, Firebase
+ 
+ Creating:
+ - SignUp/SignIn using Farebase.Auth
+ - MapKit
+ - Collection view with properties (are modified)
+
