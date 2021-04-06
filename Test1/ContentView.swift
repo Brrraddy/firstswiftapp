@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import FirebaseAuth
+import MapKit
 
 struct ContentView: View {
     
@@ -45,6 +46,10 @@ struct Home : View {
         
         VStack{
             
+            VStack{
+                MapView()
+                
+            }
             Text("Home")
             Button(action: {
                 UserDefaults.standard.set(false, forKey: "status")
@@ -54,6 +59,41 @@ struct Home : View {
                 
                 Text("Logout")
             }
+        }
+    }
+}
+
+struct MapView : UIViewRepresentable {
+    func makeUIView(context: Context) -> MKMapView {
+        let mapView = MKMapView()
+        mapView.delegate = context.coordinator
+        
+        let annotation = MKPointAnnotation()
+        annotation.title = "Kenia"
+        annotation.subtitle = "Coffee"
+        
+        annotation.coordinate = CLLocationCoordinate2DMake(0.27, 37.39)
+        mapView.addAnnotation(annotation)
+        return mapView
+    }
+    
+    func updateUIView(_ uiView: MKMapView, context: Context) {
+        
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    class Coordinator : NSObject, MKMapViewDelegate {
+        var parent: MapView
+        
+        func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+            print(mapView.centerCoordinate)
+        }
+        
+        init(_ parent: MapView) {
+            self.parent = parent
         }
     }
 }
